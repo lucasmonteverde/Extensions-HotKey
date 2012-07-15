@@ -12,79 +12,25 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="options.css" />
 	<title> Extensions HotKey Options </title>
-	<script>
-	var out = "ctrl + shift + ",code = 69;
-
-	function init(){
-		var hotkey = document.getElementById("hotkey");
-		hotkey.addEventListener("keydown", keyDown, false);
-		
-		if(localStorage.hotkey){
-			var data = localStorage.hotkey;
-			default_value = data.substr(data.lastIndexOf('+')) + CharCode(data.substr(data.lastIndexOf('+') + 2));
-		}else
-			default_value = out + CharCode(code);
-			
-		hotkey.value = default_value;
-	}
-	
-	function keyDown(e){
-		out = "";
-		if(e.ctrlKey) out += "ctrl + ";
-		if(e.shiftKey) out += "shift + ";
-		if(e.altKey) out += "alt + ";
-		if(e.metaKey) out += "meta + ";
-
-		code = e.keyCode;
-		code = code == 16 ||code == 17 ||code == 18?null:code;
-		e.target.value = out + CharCode(code);
-		e.preventDefault();
-		return false;
-	}
-
-	function save(btn) {
-		var span = document.getElementById("hotkey").nextSibling;
-		if(!code){
-			toggle(span," Press a key");
-		}else if(out == ""){
-			toggle(span," Press a Modifier key");
-		}else{
-			var local = out + code;
-			console.log(local);
-			localStorage.hotkey = local;
-			toggle(btn.nextSibling,"Hotkey Saved");
-		}
-	}
-	
-	function toggle(obj,text){
-		obj.style.display = "inline";
-		obj.innerText = text;
-		setTimeout(function() { obj.style.display = "none" }, 1500);
-	}
-	
-	function CharCode(code){
-		return String.fromCharCode(code).toLowerCase();
-	}
-
-	</script>
+	<script src="options.js"></script>
 </head>
-<body onload="init();">
+<body>
 
-<div id="contentBox">
-<div id="header">
-	<h1 id="optionTitle">Extensions Hotkey Options</h1>
-</div>
+	<div id="contentBox">
+		<div id="header">
+			<h1 id="optionTitle">Extensions Hotkey Options</h1>
+		</div>
 
-<h4>HotKey: <span id="pagesScript">Press a custom HotKey</span></h4>
-<div class="section-content">
-	<input type="text" id="hotkey"></input><span></span>
-</div>
+		<h4>HotKey: <span id="pagesScript">Press a custom HotKey</span></h4>
+		<div class="section-content">
+			<input type="text" id="hotkey" /><span></span>
+		</div>
 
-<div class="closeBtn">
-	<button id="save" onclick="save(this)">Save</button><span></span>
-</div>
-</div>
+		<div class="closeBtn">
+			<button id="save">Save</button><span></span>
+		</div>
+	</div>
 
-<div id="footer">&copy;2010 Extensions HotKey</div>
+	<div id="footer">&copy;2012 Extensions HotKey</div>
 </body>
 </html>
